@@ -28,7 +28,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/johndoe.md)]
 
 - Role: Developer
-- Responsibilities: Coding, Bug fixing
+- Responsibilities: Coding, Bug fixing, Code quality
 
 ### Low Guo Zhang, Lucas
 
