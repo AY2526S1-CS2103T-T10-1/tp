@@ -40,13 +40,13 @@ title: User Guide
     * `add n/Google a/SWE Intern e/careers@google.com t/Backend microservices i/Technology s/Saved d/2024-12-31`
     * `add n/DBS Bank a/Data Analyst Intern e/internships@dbs.com t/Analytics team i/Finance s/Saved d/2025-01-15`
     * `add n/ByteDance a/PM Intern e/hr@bytedance.com t/TikTok team i/Technology s/Saved d/2024-12-20`
-    
+
     *Result:* Your list now shows 3 applications, in the order you added them.
 
     **Step 2: Prioritize and update** -
     You want to apply for the one with the *earliest* deadline first.
     * `sort deadline`
-    
+
     *Result:* The list immediately re-orders. **ByteDance** is now at **Index 1**. Let's say you applied for it.
     * `edit 1 s/Applied`
     
@@ -55,20 +55,20 @@ title: User Guide
     **Step 3: Filter and delete** -
     Now you only want to see your "To-Do" list (status `Saved`).
     * `filter s/Saved`
-    
+
     *Result:* The list is filtered, hiding "ByteDance". The status bar now says "2 applications listed".
     1.  **Google**
     2.  **DBS Bank**
 
     Looking at this filtered list, you decide you're not interested in DBS Bank (Index 2).
     * `delete 2`
-    
+
     *Result:* The item at **Index 2** of the *current list* (DBS Bank) is permanently deleted.
 
     **Step 4: Reset and final check** -
     Finally, clear the filter to see *all* your remaining applications.
     * `list`
-    
+
     *Result:* The filter is cleared. You now see your remaining applications: **ByteDance** (Status: `Applied`) and **Google** (Status: `Saved`). `DBS Bank` is gone.
 
     **Step 5: Exit** -
@@ -120,7 +120,7 @@ Notes:
 - `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,` (e.g., AT&T, McDonald's, Apple Inc., Coca-Cola)
 - `INDUSTRY` must be one of: Technology, Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design
 - `JOB_ROLE` should only contain alphanumeric characters and spaces and should not be blank. (e.g., `Software Engineer Intern`, `Marketing Analyst Intern`)
-- `DESCRIPTION` should not be empty and cannot exceed 200 characters
+- `DESCRIPTION` must not be empty or contain only whitespace, and cannot exceed 200 characters. At least one non-whitespace character is required.
 - `EMAIL` Emails should be of the format local-part@domain.tld and adhere to the following constraints:
   - The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
   - This is followed by a '@' and then a domain name (e.g., gmail, company, university).
@@ -129,8 +129,12 @@ Notes:
   - The domain must be followed by a period and a top-level domain (e.g., .com, .edu, .org).
       - A Top Level Domain should have at least 2 characters long
 - `STATUS` must be one of: Saved, Applied, Interviewing, Offer, Rejected.
-- `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31) and between today and before 2030-01-01
-- You can add multiple applications to the same company as long as they are for different job roles (e.g., Google SWE Intern and Google PM Intern are both allowed)
+- `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31) and between 2020-01-01 and before 2030-01-01
+- **Duplicate detection**: Two applications are considered duplicates if they have the same company name, industry, job type, AND description (case-insensitive). This means you can add multiple applications to the same company in the following cases:
+  - **Different job types** (e.g., `Google - SWE Intern` and `Google - PM Intern` are both allowed)
+  - **Different industries** (e.g., `Google - Technology - SWE Intern` and `Google - Marketing - SWE Intern` are both allowed)
+  - **Same company, industry, and job type, but different descriptions** (e.g., `Google - Technology - SWE Intern - Backend microservices` and `Google - Technology - SWE Intern - Frontend development` are both allowed, as they represent different specializations)
+  - **Case variations are ignored** (e.g., `Google` and `google`, or `SWE Intern` and `swe intern` are treated as the same)
 
 Examples:
 * `add n/Google a/SWE Intern e/careers@google.com t/Backend microservices i/Technology s/Saved d/2024-12-31`
@@ -191,7 +195,8 @@ Notes:
 * Existing values will be overwritten by the new inputs.
 * `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,`
 * Input for `INDUSTRY` and `STATUS` is case-insensitive (e.g., `i/technology` and `s/applied` are accepted).
-* `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31) and between today and before 2030-01-01
+* `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31) and between 2020-01-01 and before 2030-01-01
+* **Duplicate detection**: After editing, the application must not be a duplicate of another existing application. Two applications are duplicates if they have the same company name, industry, job type, AND description (case-insensitive). If your edit would create a duplicate, an error message will be shown.
 
 Examples:
 * `edit 1 n/Google Singapore`
